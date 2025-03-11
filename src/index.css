@@ -53,45 +53,6 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  text-align: left;
-}
-p {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-body {
-  font-family: 'Roboto', sans-serif;
-  color: #434455;
-  background-color: #ffffff;
-  box-sizing: border-box;
-}
-ul,
-ol {
-  list-style-type: none;
-  padding-left: 0px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-a {
-  text-decoration: none;
-  color: inherit;
-}
-button {
-  cursor: pointer;
-}
-img {
-  display: block;
-  max-width: 100%;
-}
 
 @media (prefers-color-scheme: light) {
   :root {
