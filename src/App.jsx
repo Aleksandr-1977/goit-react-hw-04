@@ -6,6 +6,7 @@ import { getImages } from './apiService/getAPI';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Loader from './components/Loader/Loader';
 import Error from './components/ErrorMessage/ErrorMessage';
+import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -24,6 +25,7 @@ function App() {
         setIsError(false);
         setLoading(true);
         setImages([]);
+        setPage(1);
         const data = await getImages(query, page);
         console.log(data);
         if (data.total === 0) return;
@@ -34,7 +36,7 @@ function App() {
           }
           return updateImages;
         });
-      } catch (error) {
+      } catch {
         setIsError(true);
       } finally {
         setLoading(false);
@@ -54,6 +56,7 @@ function App() {
       {loading && <Loader />}
       {isError && <Error />}
       {images.length > 0 && <ImageGallery images={images} />}
+      {images.length > 0 && !loading && !isError&&<LoadMoreBtn}
       {/* <Toaster /> */}
     </>
   );
