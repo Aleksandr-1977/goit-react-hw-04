@@ -1,25 +1,14 @@
-import css from './Loader.module.css';
-import ClipLoader from 'react-spinners/ClipLoader';
-import { nanoid } from 'nanoid';
+import RingLoader from 'react-spinners/RingLoader';
 
-const override: CSSProperties = {
+const override = {
   display: 'block',
-  margin: '0 auto',
-  borderColor: 'red',
+  margin: '100px auto',
+  borderColor: 'green',
 };
-const Loader = ({}) => {
-  let [color, setColor] = useState('#ffffff');
-
+const Loader = () => {
   return (
-    <div className="sweet-loading">
-      <ClipLoader
-        color={color}
-        loading={loading}
-        cssOverride={override}
-        size={150}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
+    <div>
+      <RingLoader color="#6dc55f" cssOverride={override} />
     </div>
   );
 };

@@ -4,18 +4,18 @@ import toast, { Toaster } from 'react-hot-toast';
 import { FcSearch } from 'react-icons/fc';
 
 const SearchBar = ({ onSubmit }) => {
-  const [image, setImage] = useState('');
+  const [images, setImages] = useState('');
 
   const handleChange = evt => {
-    setImage(evt.target.value);
+    setImages(evt.target.value);
   };
   const handleSubmit = evt => {
     evt.preventDefault();
-    if (!image.trim()) {
-      return alert('Empty');
+    if (!images.trim()) {
+      toast.error('Введите критерий поиска');
     }
-    onSubmit(image);
-    setImage('');
+    onSubmit(images);
+    setImages('');
   };
   return (
     <div className={css.container}>
@@ -23,12 +23,12 @@ const SearchBar = ({ onSubmit }) => {
         <form className={css.form} onSubmit={handleSubmit}>
           <input
             onChange={handleChange}
-            name="search"
-            value={image}
+            // name="images"
+            value={images}
             className={css.input}
             type="text"
-            autocomplete="off"
-            autofocus
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
           />
           <button className={css.btn} type="submit">
@@ -36,8 +36,19 @@ const SearchBar = ({ onSubmit }) => {
           </button>
         </form>
       </header>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          className: '',
+          style: {
+            border: '1px solid #713200',
+            padding: '16px',
+            color: '#713200',
+          },
+        }}
+      />
     </div>
   );
-  resetForm(value);
+  resetForm(images);
 };
 export default SearchBar;

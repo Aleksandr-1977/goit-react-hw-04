@@ -1,16 +1,15 @@
+import ImageCard from '../ImageCard/ImageCard';
 import css from './ImageGallery.module.css';
 
-const ImageGallery = ({}) => {
-  if (contacts.length === 0)
-    return (
-      <ul>
-        {/* Набір елементів списку із зображеннями */}
-        <li>
-          <div>
-            <img src="" alt="" />
-          </div>
+const ImageGallery = ({ images }) => {
+  return (
+    <ul className={css.gallerylist}>
+      {images.map(({ id, alt_description, urls }) => (
+        <li className={css.gallerycard} key={id}>
+          <ImageCard urls={urls} alt_description={alt_description} />
         </li>
-      </ul>
-    );
+      ))}
+    </ul>
+  );
 };
 export default ImageGallery;
