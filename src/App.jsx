@@ -20,8 +20,12 @@ function App() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalImage, setModalImage] = useState('');
   const [altDescription, setAltDescription] = useState('');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const openModal = () => {
+  const openModal = index => {
+    setCurrentImageIndex(index);
+    setModalImage(images[index].urls.regular);
+    setAltDescription(images[index].alt_description);
     setIsOpen(true);
   };
 
@@ -29,10 +33,26 @@ function App() {
     setIsOpen(false);
   };
 
-  const updateModalStateData = (src, alt) => {
-    setModalImage(src);
-    setAltDescription(alt);
+  const updateModalStateData = index => {
+    setCurrentImageIndex(index);
+    setModalImage(images[index].urls.regular);
+    setAltDescription(images[index].alt_description);
   };
+
+  const goToNextImage = () => {
+    if (currentImageIndex < images.length - 1) {
+      setCurrentImageIndex(currentImageIndex + 1);
+      updateModalStateData(currentImageIndex + 1);
+    }
+  };
+
+  const goToPreviousImage = () => {
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(currentImageIndex - 1);
+      updateModalStateData(currentImageIndex - 1);
+    }
+  };
+
   useEffect(() => {
     if (!query) return;
 
@@ -42,15 +62,15 @@ function App() {
         setLoading(true);
         const data = await getImages(query, page);
         setTotalPages(data.total_pages);
-        console.log(data);
         if (data.total === 0) {
           toast.error(
             'Извините, нет результатов, соответствующих вашему поисковому запросу. Попробуйте еще раз!'
           );
-        }
-        setImages(prevImages => [...prevImages, ...data.results]);
-        if (page >= data.total_pages) {
-          toast('Сожалеем, но больше нет информации по Вашему запросу!');
+        } else {
+          setImages(prevImages => [...prevImages, ...data.results]);
+          if (page >= data.total_pages && page > 0) {
+            toast('Сожалеем, но больше нет информации по Вашему запросу!');
+          }
         }
       } catch {
         setIsError(true);
@@ -62,6 +82,7 @@ function App() {
   }, [query, page]);
 
   const getQuery = image => {
+    if (image === query) return;
     setQuery(image);
     setImages([]);
     setPage(1);
@@ -86,6 +107,8 @@ function App() {
         />
       )}
       <ImageModal
+        goToNextImage={goToNextImage}
+        goToPreviousImage={goToPreviousImage}
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
         src={modalImage}
