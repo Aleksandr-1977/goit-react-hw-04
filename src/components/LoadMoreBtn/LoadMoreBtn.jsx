@@ -1,8 +1,11 @@
 import css from './LoadMoreBtn.module.css';
-const LoadMoreBtn = () => {
+const LoadMoreBtn = ({ onClick, pages, totalPages }) => {
   return (
-    <button className={css.btn} type="submit">
-      Load more
+    <button className={css.btn} type="button" onClick={onClick}>
+      Load more{' '}
+      <span className={css.span}>
+        page {pages}\{totalPages}
+      </span>
     </button>
   );
 };

@@ -5,10 +5,10 @@ const override = {
   margin: '100px auto',
   borderColor: 'green',
 };
-const Loader = () => {
+const Loader = ({ loading }) => {
   return (
     <div>
-      <RingLoader color="#6dc55f" cssOverride={override} />
+      <RingLoader color="#6dc55f" cssOverride={override} loading={loading} />
     </div>
   );
 };

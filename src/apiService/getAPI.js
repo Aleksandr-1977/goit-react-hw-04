@@ -8,13 +8,14 @@ axios.defaults.headers = {
 };
 axios.defaults.params = {
   orientation: 'landscape',
-  per_page: 15,
+  per_page: 12,
 };
 
 export const getImages = async (query, page) => {
   const response = await axios.get('/search/photos', {
     params: {
       query,
+
       page,
     },
   });
